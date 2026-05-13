@@ -1,0 +1,51 @@
+\documentclass{./worksheet}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+
+\mytitle{Introduction to C}
+
+\begin{document}
+
+This worksheet will give you some practice using the C programming language. Make sure to refer to the reference sheet if you are forgetting
+any of the syntax or the library functions. You can also raise your hand and ask for help if you are stuck!
+\begin{enumerate}
+
+\item Write a simple C program that creates two integers and computes its sum.
+Then print a message back to the screen, in the format ``\verb|<int1>| plus \verb|<int2>| equals \verb|<sum>|".
+
+\textbf{Challenge}: have the program read the two integers from the user instead of hardcoding them.
+You can use the following resource to help you \url{https://www.w3schools.com/c/c_user_input.php}
+
+\item Save your program in the file \verb|intro_c.c|. What is the command to compile your
+program into an executable named \verb|intro_c|?
+\vspace{0.5in}
+
+\item In the same program or a new one. Define a struct type that represents the current
+time. It should have fields for the hour, minute, and second. Create a variable
+of this struct to store the current time (just enter it manually).
+
+\textbf{Challenge}: have
+the variable store the current time automatically using the \verb|time()| function.
+You can use the following resource to help you \url{https://www.w3schools.com/c/c_date_time.php}
+
+\item Write a function that takes in this time struct as an argument and
+prints it to the screen in the format ``\verb|HH:MM:SS|".
+
+\item Create an array of time structs set to random times.
+Create a for loop to iterate through the array and print each time.
+
+\item Create a while loop in main that updates the struct every second and prints the new time.
+Remember there cannot be more than 60 seconds ;).
+(hint: you'll need to modify the struct and use the \verb|sleep()| function)
+
+\item Will your program run forever? Discuss with your partner and write down
+your answer, then press \verb|Ctrl+C| while in your terminal to stop it.
+\vspace{1in}
+
+\item Modify your while loop so that it stops when a minute has passed.
+
+\textbf{Challenge}: Replace the while loop logic with a for loop instead.
+
+\end{enumerate}
+
+
+\end{document}
