@@ -23,3 +23,58 @@ editor:
     render-on-save: true
 
 ---
+
+# Review
+
+# Gotta Go Fast
+
+::: {.notes}
+lossless but slow
+:::
+
+## Protocol Race
+
+1. Get into groups of three and decide who will be the *client*, the *server*, and the *link*.
+
+2. The client and server should stand on opposite sides of the field.
+
+3. Server will have a buffer of X number of bytes and how many bytes it can remove from its buffer per turn. Only the server must know this.
+
+## Protocol Race
+When a round starts:
+
+1. The client will write the number of bytes it wants to send to the server, and the link will deliver the message to the server.
+
+2. The server will then do the following:
+    - Remove bytes in the buffer
+    - Check if there is space in the buffer for the incoming bytes, and if there is add them to the buffer and write a check mark on the whiteboard
+    - If there is no space, write an X on the whiteboard.
+
+## Protocol Race
+3. The link will deliver the whiteboard back to the client. If the client receives an X, it can't send anything for 10 seconds. If the client receives a checkmark, it can move up however many steps it sent as bytes to the server.
+
+The first client to reach the server wins.
+
+# Discussion
+
+# TCP
+
+::: {.notes}
+switch to ppt slides
+:::
+
+# Cybersecurity
+
+## TLS/SSL
+
+## Hashing
+
+## Symmetric Encryption
+
+## Asymmetric Encryption
+
+# Q & A
+
+# Graduation
+
+# Showcase

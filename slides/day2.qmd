@@ -89,18 +89,63 @@ For example:
     - Heart Rate Measurement Characteristic (0x2A37)
 
 ## Arduino
-
+TODO
 
 ## Circuits
-Closed loop flow of electrons
+TODO
 
 ## Programming an Arduino
+TODO
 
 ## Number Representations
+
+- Decimal (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+- Binary (0, 1)
+- Octal (0, 1, 2, 3, 4, 5, 6, 7)
+- Hexadecimal (0-9, A, B, C, D, E, F)
 
 ::: {.notes}
 hand out worksheet
 :::
+
+# 2 in binary?
+
+::: {.notes}
+take out ipad and show them how to compute values
+:::
+
+## Converting to Decimal (from non-Decimal)
+
+1. Multiply each digit by its base raised to the power of its position (from
+right to left, starting at 0).
+2. Sum all the values obtained.
+
+::: {.notes}
+work through some examples with them
+:::
+
+## Converting to Binary (from Decimal)
+
+1. Divide the decimal number by the base of the target system.
+2. Write down the remainder.
+3. Repeat the division with the quotient until the quotient becomes zero.
+4. Read the remainders in reverse order (from last to first). This is the equivalent number in the target
+base.
+
+::: {.notes}
+work through some examples with them
+:::
+
+
+## Bitwise Operators
+```{.c}
+// Bitwise operators: &, |, ^, ~, <<, >>
+printf("  5 & 3  = %d  (0101 & 0011 = 0001)\n", 5 & 3);
+printf("  5 | 3  = %d  (0101 | 0011 = 0111)\n", 5 | 3);
+printf("  5 << 1 = %d  (left shift by 1)\n\n", 5 << 1);
+```
+
+# Tutorial
 
 # Javascript
 

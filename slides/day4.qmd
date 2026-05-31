@@ -24,6 +24,8 @@ editor:
 
 ---
 
+# Review
+
 # Debugging
 
 ::: {.notes}
@@ -39,3 +41,9 @@ how would i debug my app?
 ## Throughput
 
 ## Uptime/Usage
+
+## Transfer Rate
+
+# Tutorial
+
+# Demo

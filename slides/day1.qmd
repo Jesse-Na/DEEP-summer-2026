@@ -394,7 +394,6 @@ What is the output?
 
 ```{.c}
 // Logical operators: && (AND), || (OR), ! (NOT)
-printf("Logical:\n");
 printf("  (1 && 1) = %d\n", 1 && 1);
 printf("  (1 || 0) = %d\n", 1 || 0);
 printf("  !1       = %d\n\n", !1);
@@ -413,9 +412,6 @@ What is the output?
 ## Truth Table
 
 ![](./images/truth-table.png)
-
-## Bitwise Operators
-TODO
 
 ## Structs
 A struct is a collection of variables (members) of possibly different types.

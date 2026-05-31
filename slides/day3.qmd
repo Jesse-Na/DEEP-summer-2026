@@ -26,8 +26,6 @@ editor:
 
 # Review
 
-# Tutorial
-
 # Mobile Apps
 
 ## React Native
@@ -44,9 +42,8 @@ Expo is also a framework, but its focus is on:
 
 ## Getting Started
 
-# Why is it Lossy?
 
-## "Packet Loss"
+# Why is it Lossy?
 
 ## Inteference
 BLE operates on the 2.4 GHz frequency band, which is shared with other wireless technologies.
@@ -58,6 +55,15 @@ BLE operates on the 2.4 GHz frequency band, which is shared with other wireless 
 ## Channel Hopping
 A channel is a specific frequency channel in between 2.4 GHz and 2.5 GHz.
 
-A BLE device can hop between channels to avoid interference.
+A BLE device constantly hops between channels to avoid interference.
 
 TODO: include diagram
+
+## Packet Loss
+Packet loss may occur whenever there is interference.
+
+The BLE device changes channels but any lossed packets need to be resent.
+
+# Tutorial
+
+# Discussion
