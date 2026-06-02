@@ -166,3 +166,5 @@ printf("  5 << 1 = %d  (left shift by 1)\n\n", 5 << 1);
 - three equals signs
 
 ## Strings?
+
+## Object Destructuring

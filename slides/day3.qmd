@@ -19,6 +19,7 @@ format:
         #highlight-style: monochrome
         #logo: qr-code.png
         #multiplex: true
+        code-block-height: 400px
 editor:
     render-on-save: true
 
@@ -42,6 +43,359 @@ Expo is also a framework, but its focus is on:
 
 ## Getting Started
 
+In a terminal:
+```{.sh code-line-numbers="false"}
+# Install Expo CLI globally
+npm install -g expo-cli
+
+# Create a new project
+npx create-expo-app MyFirstApp
+
+# Navigate to project folder
+cd MyFirstApp
+
+# Start the development server
+npx expo start
+```
+
+Expo creates a React Native project for you
+
+::: {.notes}
+demo how to open on the simulator and on the phone
+:::
+
+## Components
+Components are like lego pieces that you can combine to build a mobile app.
+
+The [root]{.highlight-red} component is the `App` function by default.
+
+Everything else starts from the [root]{.highlight-red} component.
+
+::: {.notes}
+go over the project folder
+:::
+
+## Creating Components {auto-animate="true"}
+
+Create components using HTML and other components.
+
+```{.jsx filename="App.js" code-line-numbers=1-7|9-17}
+function Greeting({name}) { // name is a prop (aka parameter)
+  return (
+    <View>
+      <Text>Hello, {name}!</Text> // Curly braces interpolate the value of `name` into the text
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <View>
+      <TouchableOpacity>
+        <Text>Press Me</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+```
+
+## Creating Components {auto-animate="true"}
+
+We can then use this component in our `App` component.
+
+```{.jsx filename="App.js" code-line-numbers=9-17}
+function Greeting({name}) { // name is a prop (aka parameter)
+  return (
+    <View>
+      <Text>Hello, {name}!</Text> // Curly braces interpolate the value of `name` into the text
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <View>
+      <Greeting name="Sarah" />
+      <Greeting name="Mike" />
+      <TouchableOpacity>
+        <Text>Press Me</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+```
+
+## Built-In Components
+
+React Native provides a set of built-in components that you are encouraged to use.
+
+- View
+- Text
+- TouchableOpacity
+- Image
+- ScrollView
+- ... and more
+
+## Styling Components {auto-animate="true"}
+
+Create a `StyleSheet` object to define CSS-like styles.
+
+```{.jsx filename="App.js" code-line-numbers=19-50|23-28|1-17}
+function Greeting({name}) { // name is a prop (aka parameter)
+  return (
+    <View>
+      <Text>Hello, {name}!</Text> // Curly braces interpolate the value of `name` into the text
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <View>
+      <Greeting name="Sarah" />
+      <Greeting name="Mike" />
+      <TouchableOpacity>
+        <Text>Press Me</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  // This is CSS-like styling
+  container: { // Class name
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  greetingContainer: {
+    marginVertical: 10,
+    padding: 15,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 8,
+  },
+  greetingText: {
+    fontSize: 18,
+    color: '#333',
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: '#007AFF',
+    padding: 12,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+```
+
+## Styling Components {auto-animate="true"}
+
+Apply the styles using the `style` prop.
+
+```{.jsx filename="App.js" code-line-numbers=1-17}
+function Greeting({name}) { // name is a prop (aka parameter)
+  return (
+    <View style={styles.greetingContainer}>
+      <Text style={styles.greetingText}>Hello, {name}!</Text> // Curly braces interpolate the value of `name` into the text
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Greeting name="Sarah" />
+      <Greeting name="Mike" />
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Press Me</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  // This is CSS-like styling
+  container: { // Class name
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  greetingContainer: {
+    marginVertical: 10,
+    padding: 15,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 8,
+  },
+  greetingText: {
+    fontSize: 18,
+    color: '#333',
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: '#007AFF',
+    padding: 12,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+```
+
+# Dynamic
+
+::: {.notes}
+that's all we need for a static app
+:::
+
+## State
+
+State lets a component “remember” information like user input (i.e. a variable for a component)
+
+```{.jsx filename="CounterApp.js" code-line-numbers=|6-7|11|16}
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+
+const CounterApp = () => {
+  // useState returns [currentValue, setterFunction]
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Counter: {count}</Text>
+
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setCount(count + 1)}
+        >
+          <Text style={styles.buttonText}>Increment</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, styles.resetButton]}
+          onPress={() => setCount(0)}
+        >
+          <Text style={styles.buttonText}>Reset</Text>
+        </TouchableOpacity>
+      </View>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Enter your name"
+        value={name}
+        onChangeText={setName}
+      />
+
+      {name ? <Text>Hello, {name}!</Text> : null}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
+  buttonRow: { flexDirection: 'row', marginBottom: 20 },
+  button: { backgroundColor: '#007AFF', padding: 12, borderRadius: 8, marginHorizontal: 5 },
+  resetButton: { backgroundColor: '#FF3B30' },
+  buttonText: { color: 'white', fontSize: 16 },
+  input: { borderWidth: 1, borderColor: '#ccc', padding: 10, borderRadius: 8, width: 200, marginBottom: 20 }
+});
+
+export default CounterApp;
+```
+
+## Effects
+
+Logic inside components:
+
+- Rendering code
+    - "pure" calculations, predictable results
+- Event handlers
+    - functions that *do* things, unpredictable, triggered by events
+
+::: {.fragment .fade-in}
+- Effects
+    - a side effect caused by rendering
+:::
+
+## Effects
+
+React resolves effects after rendering the page or a specific dependency.
+
+```{.jsx filename="DataFetcher.js" code-line-numbers=|5-7|35-40|9-33|35|42|48-52}
+import React, { useState, useEffect } from 'react';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+
+const DataFetcher = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // This runs after component mounts
+    console.log('Component mounted - fetching data');
+
+    const fetchData = async () => {
+      try {
+        // Simulating API call
+        const response = await new Promise((resolve) =>
+          setTimeout(() => resolve({ message: 'Hello from API!' }), 2000)
+        );
+        setData(response);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Cleanup function (runs before unmount or before next effect)
+    return () => {
+      console.log('Cleanup - component unmounting or dependencies changed');
+    };
+  }, []); // Empty array = runs only once on mount, add dependencies here if needed
+
+  if (loading) return (
+    <View style={styles.center}>
+      <ActivityIndicator size="large" color="#007AFF" />
+      <Text>Loading...</Text>
+    </View>
+  );
+
+  if (error) return (
+    <View style={styles.center}>
+      <Text style={styles.error}>Error: {error}</Text>
+    </View>
+  );
+
+  return (
+    <View style={styles.center}>
+      <Text>{data?.message}</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  error: { color: 'red' }
+});
+
+export default DataFetcher;
+```
+
+# Tutorial
 
 # Why is it Lossy?
 
@@ -63,7 +417,3 @@ TODO: include diagram
 Packet loss may occur whenever there is interference.
 
 The BLE device changes channels but any lossed packets need to be resent.
-
-# Tutorial
-
-# Discussion
