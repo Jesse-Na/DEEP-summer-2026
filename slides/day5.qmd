@@ -65,14 +65,94 @@ switch to ppt slides
 
 # Cybersecurity
 
-## TLS/SSL
+## Mizi and Sua
 
+Mizi wants to send a message to Sua, but...
+
+TODO: include pictures
+
+it's over the internet.
+
+<br>
+
+What should she do?
+
+::: {.notes}
+traditionally known as alice and bob
+
+get a volunteer in the class and try to do this
+:::
 
 ## Hashing
 
-## Symmetric Encryption
+A hash function takes in a message (preimage) and returns a smaller message (hash value/digest)
+
+A good hash function should be:
+
+- Preimage resistant
+- 2nd preimage resistant
+- Collision resistant
+
+Good default hash function as of June 2, 2026: [SHA256]{.highlight-red}
+
+Avoid MD5!
+
+## Ciphers
+An algorithm that obfuscates information so that it seems random to anyone who does not possess "the key".
+
+- Substitution ciphers
+- One-Time pads
+
+Symmetric encryption are ciphers that use a random key to encrypt and decrypt.
+
+- Block ciphers
+- Stream ciphers
+
+Good default cipher as of June 2, 2026: [AES-256]{.highlight-red}
+
+::: {.notes}
+"the key", explain kerchkoff's principle
+:::
 
 ## Asymmetric Encryption
+
+- Every user has a public/private key pair
+- The private and public keys reveal nothing about the other
+- Messages encrypted with one key can only be decrypted with the other key
+
+Encryption: the sender encrypts the message with the recipient’s public key.
+
+Decryption: the recipient decrypts the message with their private key.
+
+Good default cipher as of June 2, 2026: [RSA]{.highlight-red}
+
+
+## Signatures
+
+Proof that a message was sent by a particular person
+
+- The sender signs the message with their private key
+- The recipient verifies the signature with the sender's public key
+
+## SSL
+
+An SSL certificate contains a website's public key among other details.
+
+- The format itself is called X.509
+
+It is issued by a Certificate Authority (CA) whose certificate is installed in your computer.
+
+It allows your browser to verify the identity of a website.
+
+::: {.fragment .fade-in}
+[You have to trust someone or something at some point.]{.highlight-red}
+:::
+
+::: {.notes}
+can demo the certificate thing in browser
+
+can also demo installed certificates
+:::
 
 # Q & A
 
