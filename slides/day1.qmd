@@ -73,7 +73,7 @@ First 3 days: Lossy
 Last 2 days: Lossless
 
 - Apply the theory!
-- Cybersecurity
+- Optimization & Cybersecurity
 
 ## Lectures
 

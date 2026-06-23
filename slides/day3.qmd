@@ -133,7 +133,7 @@ React Native provides a set of built-in components that you are encouraged to us
 - Text
 - TouchableOpacity
 - Image
-- ScrollView
+- FlatList
 - ... and more
 
 ## Styling Components {auto-animate="true"}

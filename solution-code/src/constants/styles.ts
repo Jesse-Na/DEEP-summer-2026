@@ -246,4 +246,26 @@ export const styles = StyleSheet.create({
     marginLeft: 12,
     lineHeight: 30,
   },
+  // Log
+  logContainer: {
+    height: 130,
+    borderTopWidth: 1,
+    borderTopColor: "#1e1e2e",
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    backgroundColor: "#08080d",
+  },
+  logHeader: {
+    fontSize: 9,
+    color: "#333350",
+    letterSpacing: 3,
+    marginBottom: 4,
+  },
+  logList: { flex: 1 },
+  logEntry: {
+    fontFamily: Platform.OS === "ios" ? "Courier New" : "monospace",
+    fontSize: 10,
+    color: "#444460",
+    lineHeight: 16,
+  },
 });

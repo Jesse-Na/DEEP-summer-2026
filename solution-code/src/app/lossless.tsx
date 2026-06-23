@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   SafeAreaView,
   View,
@@ -18,6 +18,7 @@ import { styles } from "../constants/styles";
 // BLE Heart Rate Service & Characteristic UUIDs (Bluetooth SIG standard)
 const HEART_RATE_SERVICE_UUID = "0000180d-0000-1000-8000-00805f9b34fb";
 const HEART_RATE_CHARACTERISTIC_UUID = "00002a37-0000-1000-8000-00805f9b34fb";
+const ACK_CHARACTERISTIC_UUID = "00002a38-0000-1000-8000-00805f9b34fb";
 
 // ─── Singleton BLE manager ────────────────────────────────────────────────────
 const bleManager = new BleManager();
@@ -26,12 +27,11 @@ const bleManager = new BleManager();
 function parseHeartRate(base64Value: string) {
   const raw = atob(base64Value);
   const bytes = Array.from(raw).map((c) => c.charCodeAt(0));
-  const flags = bytes[0];
-  const is16Bit = flags & 0x01;
-  const hr = is16Bit ? bytes[1] | (bytes[2] << 8) : bytes[1];
+  const seqNum = bytes[0];
+  const hr = bytes[1];
   const rrIntervals = [];
-  let offset = is16Bit ? 3 : 2;
-  const rrPresent = (flags >> 4) & 0x01;
+  let offset = 2;
+  const rrPresent = false;
   if (rrPresent) {
     while (offset + 1 < bytes.length) {
       const rr = ((bytes[offset + 1] << 8) | bytes[offset]) / 1024;
@@ -39,7 +39,7 @@ function parseHeartRate(base64Value: string) {
       offset += 2;
     }
   }
-  return { heartRate: hr, rrIntervals };
+  return { seqNum, heartRate: hr, rrIntervals };
 }
 
 // ─── Pulse animation component ───────────────────────────────────────────────
@@ -185,16 +185,26 @@ function DeviceRow({
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
+  const subscription = useRef<any>(null);
+  const scanTimeout = useRef<any>(null);
+
+  // TODO: day 3 tutorial
   const [bleState, setBleState] = useState("Unknown");
   const [scanning, setScanning] = useState(false);
   const [devices, setDevices] = useState<Device[]>([]);
   const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
   const [connectingId, setConnectingId] = useState<string | null>(null);
   const [heartRate, setHeartRate] = useState(0);
-  const [prevHeartRate, setPrevHeartRate] = useState(-1);
+  // const [prevHeartRate, setPrevHeartRate] = useState(-1);
   const [rrIntervals, setRrIntervals] = useState<number[]>([]);
-  const subscription = useRef<any>(null);
-  const scanTimeout = useRef<any>(null);
+  const [log, setLog] = useState<string[]>([]);
+
+  const [prevSeqNum, setPrevSeqNum] = useState(-1);
+  const [seqNum, setSeqNum] = useState(0);
+
+  const addLog = useCallback((msg: string) => {
+    setLog((prev) => [msg, ...prev].slice(0, 50));
+  }, []);
 
   // Monitor BLE state
   useEffect(() => {
@@ -204,21 +214,39 @@ export default function App() {
     return () => sub.remove();
   }, []);
 
+  // TODO: day 4 code along
   useEffect(() => {
-    if (heartRate !== prevHeartRate + 8) {
-      console.log(`Missed heart rate update: ${prevHeartRate} -> ${heartRate}`);
+    const sendAck = async (num: number) => {
+      await connectedDevice?.writeCharacteristicWithResponseForService(
+        HEART_RATE_SERVICE_UUID,
+        ACK_CHARACTERISTIC_UUID,
+        btoa(num.toString()),
+      );
+    };
+    addLog(`Sequence number: ${seqNum}, Heart rate: ${heartRate}`);
+
+    if (prevSeqNum >= 254) {
+      setPrevSeqNum(-1);
+      return;
+    }
+
+    if (seqNum !== prevSeqNum + 1) {
       Alert.alert(
         "Missed Heart Rate Update",
-        `Expected ${prevHeartRate + 8}, got ${heartRate}`,
+        `Expected ${prevSeqNum + 1}, got ${seqNum}`,
         [
           {
             text: "OK",
           },
         ],
       );
+      sendAck(prevSeqNum);
+    } else {
+      // send ack
+      sendAck(seqNum);
+      setPrevSeqNum(seqNum);
     }
-    setPrevHeartRate(heartRate);
-  }, [heartRate]);
+  }, [seqNum]);
 
   // Android permissions
   async function requestPermissions() {
@@ -241,6 +269,7 @@ export default function App() {
     }
   }
 
+  // TODO: day 3 tutorial
   async function startScan() {
     if (bleState !== State.PoweredOn) {
       Alert.alert(
@@ -270,14 +299,6 @@ export default function App() {
             if (prev.find((d) => d.id === device.id)) return prev;
             return [...prev, device];
           });
-
-          // setDevices((prev) => {
-          //   if (prev.find((d) => d.id === device.id)) return prev;
-          //   return [
-          //     ...prev,
-          //     { id: device.id, name: device.name, rssi: device.rssi },
-          //   ];
-          // });
         }
       },
     );
@@ -288,12 +309,14 @@ export default function App() {
     }, 12000);
   }
 
+  // TODO: day 3 tutorial
   function stopScan() {
     bleManager.stopDeviceScan();
     clearTimeout(scanTimeout.current);
     setScanning(false);
   }
 
+  // TODO: day 3 tutorial
   async function connectToDevice(device: Device) {
     stopScan();
     setConnectingId(device.id);
@@ -301,6 +324,7 @@ export default function App() {
       const connected = await bleManager.connectToDevice(device.id);
       await connected.discoverAllServicesAndCharacteristics();
       setConnectedDevice(device);
+      setPrevSeqNum(-1);
       subscription.current = connected.monitorCharacteristicForService(
         HEART_RATE_SERVICE_UUID,
         HEART_RATE_CHARACTERISTIC_UUID,
@@ -309,9 +333,12 @@ export default function App() {
             return;
           }
           if (characteristic?.value) {
-            const { heartRate: hr, rrIntervals: rr } = parseHeartRate(
-              characteristic.value,
-            );
+            const {
+              seqNum,
+              heartRate: hr,
+              rrIntervals: rr,
+            } = parseHeartRate(characteristic.value);
+            setSeqNum(seqNum);
             setHeartRate(hr);
             setRrIntervals(rr);
           }
@@ -324,6 +351,7 @@ export default function App() {
     }
   }
 
+  // TODO: day 3 tutorial
   async function disconnect() {
     if (!connectedDevice) return;
     subscription.current?.remove();
@@ -337,6 +365,7 @@ export default function App() {
 
   const isConnected = !!connectedDevice;
 
+  // TODO: day 3 tutorial
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="light-content" backgroundColor="#0a0a0f" />
@@ -423,6 +452,17 @@ export default function App() {
           )}
         </View>
       )}
+
+      {/* Log */}
+      <View style={styles.logContainer}>
+        <Text style={styles.logHeader}>LOG</Text>
+        <FlatList
+          data={log}
+          keyExtractor={(_, i) => String(i)}
+          style={styles.logList}
+          renderItem={({ item }) => <Text style={styles.logEntry}>{item}</Text>}
+        />
+      </View>
     </SafeAreaView>
   );
 }
