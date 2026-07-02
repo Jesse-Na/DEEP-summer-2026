@@ -31,7 +31,16 @@ this meeting place is still the home to many Indigenous people from across
 Turtle Island and we are grateful to have the opportunity to work on this land.
 
 ## Who Are We?
-Include me and specialists
+
+<br>
+
+::: {layout-ncol=3}
+![Rita](./images/rita-2.png)
+
+![Jess](./images/jess-2.png)
+
+![Saniya](./images/saniya-2.png)
+:::
 
 # Getting to Know You
 
@@ -59,6 +68,8 @@ Can anyone think of anything else?
 # The Project
 
 ::: {.notes}
+explain sickkids project
+
 demo the lossy app
 :::
 
@@ -81,7 +92,11 @@ University style
 
 - Mixed lectures
 - Tutorial following lectures
-- Slides available at https://deep-future-fit.netlify.app/
+- Slides available at https://deep-future-fit-day1.netlify.app/
+
+::: {.notes}
+switch day
+:::
 
 ## Prizes
 
@@ -118,8 +133,8 @@ Are there any others you've heard about?
 
 ![](./images/network-models.png){fig-align=center}
 
-##
-draw packet header diagram
+## Packet Encapsulation
+![](./images/packet-encapsulation.png){fig-align=center}
 
 ## Packet Loss
 Packet loss is when a packet is not successfully delivered from one network device to another.
@@ -150,13 +165,18 @@ Key Ideas:
 ## Instructions
 
 Get into groups of [six]{.highlight-red}, and decide which roles you will be.
+
+<br>
+
 There needs to be 1 client, 1 server, 3 links, and 1 interferer.
 
 ## Round 1
 
 The client will secretly decide on a sentence to send to the server.
 
-When the round starts, they will write each letter on a flashcard and pass them to links who will try to pass it to the server.
+When the round starts, they will write [each letter]{.highlight-red} on a flashcard and pass them to links.
+
+The links will try to pass it to the server.
 
 The server collects all flashcards [in order]{.highlight-red}.
 
@@ -167,15 +187,29 @@ The server reveals the sentence it has in the end.
 ## Round 2
 Swap roles!
 
+<br>
+
 The server now upon receiving a flashcard sends a flashcard back to the client as an acknowledgement using the links.
+
+<br>
+
+The client can use this acknowledgement as they see fit.
+
+<br>
+
+Remember, the goal is to make sure the server receives all flashcards in the correct order.
 
 ## Round 3
 Swap roles again!
 
-The client marks each flashcard with the letter's position in the sentence
-(e.g. is it the first, second, third, etc. letter).
+<br>
 
-The server as part of its acknowledgement will include the letter's position as part of its message.
+The client marks each flashcard with the letter's position in the sentence
+(e.g. is it the first, second, third, etc.).
+
+<br>
+
+The server, as part of its acknowledgement, will now include the letter's position as part of its message.
 
 # Talk it out
 
@@ -212,8 +246,8 @@ Most common shells:
 echo "Hello, World!"
 ```
 
-You can type this into your terminal and it will run the `echo` command, which
-is actually a program somewhere on your computer.
+Typing this into the terminal will run the `echo` command, which
+is a program somewhere on your computer.
 
 :::{.notes}
 demo the shell
@@ -253,7 +287,7 @@ Git is **NOT** Github.
 show them the github
 :::
 
-# C Playground
+# C Playground (TODO)
 
 ::: {.notes}
 hand out laptops
@@ -262,77 +296,90 @@ as i am speaking, feel free to play around with C in a C playground
 :::
 
 ## Variables
-Variables are labelled memory addresses...
+```{.c}
+int age = 25; // creating a variable called age
+```
 
-![](./images/memory-model.png){fig-align=center}
+<br>
 
-## Variables
-Variables are labelled memory addresses...
-
-*or little boxes inside your computer.*
-
-TODO: memory model with boxes on it
+::: {.fragment .fade-in}
+![](./images/memory-model.png){fig-align=center width=60%}
+:::
 
 ::: {.notes}
-box analogy
+break down each part of the statement using ipad
+
+fill out table
 :::
+
+##
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Variables are like [little boxes]{.highlight-red} inside your computer
 
 ## Data Types
 Every variable has a type of value it can store
 
-```{.c code-line-numbers=|1|3|5|9|11-12|14-15}
-char letter = 'C';                // Typically 1 byte, -128 to 127
-short small_num = 2500;           // Typically 2 bytes
-int age = 25;                     // Typically 4 bytes (most common integer type)
-long big_population = 7800000000; // Typically 8 bytes
-uint32_t positive_only = 100; // Only positive values, extends range
+```{.c code-line-numbers=1|3|5|9|11-12|14-15}
+char letter = 'C';                // 1 byte
+short small_num = 2500;           // 2 bytes
+int age = 25;                     // 4 bytes (most common integer type)
+long big_population = 7800000000; // 8 bytes
+uint8_t positive_only = 100; // 8 bits (aka 1 byte), positive numbers only
 
 // Floating-point types for decimal numbers.
-float pi_approx = 3.14f;          // Typically 4 bytes, single precision (note the 'f')
-double precise_pi = 3.14159265359; // Typically 8 bytes, double precision
+float pi_approx = 3.14f;          //  4 bytes (note the 'f')
+double precise_pi = 3.14159265359; // 8 bytes
 
 // Numbers can also be used to represent false/off and true/on
-int is_completed = 1;
+int is_completed = 1; // 0 is false, 1 is true
 
 // Constants cannot be modified after declaration.
 const int BIRTH_YEAR = 1999;
 ```
 
-::: {.notes}
-explain what part is the variable
-:::
-
-# = is assignment!!!
-
 ## Printing to the Screen
 ```{.c}
 // Print using format specifiers that match the data type.
 printf("char:        %c\n", letter);
-printf("short:       %hd\n", small_num);
 printf("int:         %d\n", age);
-printf("long:        %ld\n", big_population);
 printf("unsigned:    %u\n", positive_only);
-printf("float:       %.2f\n", pi_approx);    // .2 limits decimals
-printf("double:      %.10f\n", precise_pi);
-printf("const int:   %d\n", BIRTH_YEAR);
+printf("double:      %.2f\n", precise_pi); // .2 limits decimals
 ```
 
 Output in the terminal:
 
 ```
 char:        C
-short:       2500
 int:         25
-long:        7800000000
 unsigned:    100
-float:       3.14
-double:      3.1415926536
-const int:   1999
+double:      3.14
 ```
 
 ::: {.notes}
 - can have as many as you want
 - newline character
+:::
+
+##
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+The equals sign (=) is [assignment!!!]{.highlight-red}
+
+::: {.notes}
+x = 3
+x = 4
+math vs coding
 :::
 
 ## Operations
@@ -345,13 +392,12 @@ const int:   1999
 ## Arithemtic Operators
 
 ```{.c}
-int a = 10, b = 3;
-printf("Arithmetic:\n");
+int a = 10;
+int b = 3;
 printf("  %d + %d = %d\n", a, b, a + b);
 printf("  %d - %d = %d\n", a, b, a - b);
 printf("  %d * %d = %d\n", a, b, a * b);
 printf("  %d / %d = %d  (integer division)\n", a, b, a / b);
-printf("  %d %% %d = %d  (remainder)\n", a, b, a % b);  // %% prints a single %
 ```
 
 What is the output?
@@ -366,14 +412,30 @@ What is the output?
 ```
 :::
 
+::: {.notes}
+break down the printf statement
+:::
+
+## Assignment
+When assigning a value to a variable, we always evaluate the right hand side first.
+
+```{.c}
+int x = 0;
+x = x + 1; // Compute x + 1 first, then assign the result to x
+x += 1; // Shorthand for the above
+x++; // Shorthand for the above
+```
+
 ## Relational Operators
+
+Compares two values and returns `1` (true) or `0` (false).
 
 ```{.c}
 // Relational operators: ==, !=, <, >, <=, >=
-printf("Relational (0=false, 1=true):\n");
 printf("  10 == 10 : %d\n", 10 == 10);
 printf("  10 != 5  : %d\n", 10 != 5);
-printf("  10 > 5   : %d\n\n", 10 > 5);
+printf("  10 <= 5  : %d\n\n", 10 <= 5);
+
 ```
 
 What is the output?
@@ -382,7 +444,7 @@ What is the output?
 ```
 10 == 10 : 1
 10 != 5  : 1
-10 > 5   : 1
+10 <= 5  : 0
 ```
 :::
 
@@ -390,7 +452,13 @@ What is the output?
 [Double equals is mathematical equality!!!]{.highlight-red}
 :::
 
+::: {.notes}
+explain what each operator means
+:::
+
 ## Logical Operators
+
+Combines or manipulates boolean values and returns `1` (true) or `0` (false).
 
 ```{.c}
 // Logical operators: && (AND), || (OR), ! (NOT)
@@ -411,76 +479,59 @@ What is the output?
 
 ## Truth Table
 
+![](./images/truth-table-blank.png)
+
+## Truth Table
+
 ![](./images/truth-table.png)
 
-## Structs
-A struct is a collection of variables (members) of possibly different types.
-
-```{.c code-line-numbers=|1-5|7-11|13-17}
-struct Student {
-    char name[MAX_STRING_SIZE];
-    int  id;
-    double grade;
-};
-
-// Declare and initialize a struct variable.
-Student_t student1;
-strcpy(student1.name, "Ada Lovelace");
-student1.id = 101;
-student1.grade = 97.5f;
-
-// Access members using the dot (.) operator.
-printf("Student 1:\n");
-printf("  Name:  %s\n", student1.name);
-printf("  ID:    %d\n", student1.id);
-printf("  Grade: %.1f%%\n", student1.grade);
-```
-
-## Functions
-Functions are like virtual machines or programs within a program
-
+## Conditionals
+If and only if a condition is true, then the code inside is executed.
 ```{.c}
-int increment(int x); // Declaration
+int score = 85;
 
-int increment(int x) { // Definition
-    x = x + 1;
+if (score >= 90) {
+    printf("Grade A\n");
+} else if (score >= 80) {
+    printf("Grade B\n");
+} else if (score >= 70) {
+    printf("Grade C\n");
+} else {
+    printf("Grade F\n");
 }
-
-int n = 84;
-n = increment(n); // Call
 ```
 
-`x` is a parameter, `n` is an argument
-
-A parameter is a variable that has no value until given one
-
-If you don't want your function to return anything, use `void`
+What does this print?
 
 ::: {.notes}
-get a volunteer?
+scratch out the first elif branch, then the second
 :::
 
-## Assignment
-When assigning a value to a variable, we always evaluate the right hand side first.
-
+## Arrays
 ```{.c}
-int x = 0;
-x = x + 1; // Compute x + 1 first, then assign the result to x
-x += 1; // Shorthand for the above
-x++; // Shorthand for the above
+int arr[3] = {0, 1, 2};
 ```
 
-## Arrays
-A fixed size, contiguous chunk of labelled memory...
+<br>
 
 ![](./images/memory-model.png){fig-align=center}
 
-## Arrays
-A fixed size, contiguous chunk of labelled memory...
+::: {.notes}
+break down each part of the statement
 
-*or a bin to store boxes.*
+fill out table
+:::
 
-TODO: diagram
+##
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Arrays are like [bins]{.highlight-red} to store boxes.
 
 ## Arrays
 ```{.c}
@@ -503,12 +554,11 @@ Integer array: 10 20 30 40 50
 [Arrays cannot be reassigned!!!]{.highlight-red}
 
 ```{.c}
-numbers = ...
+numbers = {40, 30, 20}; // will cause an error
 ```
 :::
 
 ::: {.notes}
-ignore the loop for now
 :::
 
 ## Strings
@@ -531,6 +581,32 @@ char s1[3] = "ab"; // is this a string?
 char s2[3] = "abc" // is this a string?
 ```
 ::::
+:::
+
+## Functions
+Functions are like virtual machines
+
+```{.c}
+int increment(int x); // Declaration
+
+int increment(int x) {
+    x = x + 1; // Definition
+}
+
+int n = 84;
+n = increment(n); // Call the function
+```
+
+`x` is a parameter, `n` is an argument
+
+A parameter is a variable that has no value until given one
+
+If you don't want your function to return anything, use `void`
+
+::: {.notes}
+get a volunteer?
+
+break down each part of the function statement
 :::
 
 ## String Functions
@@ -558,27 +634,28 @@ Copy:   Hello, world!
 Concat: Hello, world! How are you?
 ```
 
-## Conditionals
-If and only if a condition is true, then the code inside is executed.
-```{.c}
-int score = 85;
+## Structs
+A struct is a collection of variables (members) of possibly different types.
 
-if (score >= 90) {
-    printf("Grade A\n");
-} else if (score >= 80) {
-    printf("Grade B\n");
-} else if (score >= 70) {
-    printf("Grade C\n");
-} else {
-    printf("Grade F\n");
-}
+```{.c code-line-numbers=|1-5|7-11|13-17}
+struct Student {
+    char name[MAX_STRING_SIZE];
+    int  id;
+    double grade;
+};
+
+// Declare and initialize a struct variable.
+Student student1;
+strcpy(student1.name, "Ada Lovelace"); // why do i have to use strcpy here?
+student1.id = 101;
+student1.grade = 97.5f;
+
+// Access members using the dot (.) operator.
+printf("Student 1:\n");
+printf("  Name:  %s\n", student1.name);
+printf("  ID:    %d\n", student1.id);
+printf("  Grade: %.1f%%\n", student1.grade);
 ```
-
-What does this print?
-
-::: {.notes}
-scratch out the first elif branch, then the second
-:::
 
 ## Loops
 Loops repeat a piece of code some number of times
@@ -650,5 +727,9 @@ gcc source_code.c -o name_of_executable
 `source_code.c` is our code
 
 `-o` means *output* the executable to a file called \<whatever comes after\>
+
+::: {.notes}
+show them how to compile?
+:::
 
 # Tutorial
