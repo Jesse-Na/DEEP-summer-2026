@@ -44,7 +44,7 @@ Expo is also a framework, but its focus is on:
 ## Getting Started
 
 In a terminal:
-```{.sh code-line-numbers="false"}
+```{.zsh code-line-numbers="false"}
 # Install Expo CLI globally
 npm install -g expo-cli
 
@@ -67,7 +67,11 @@ demo how to open on the simulator and on the phone
 ## Components
 Components are like lego pieces that you can combine to build a mobile app.
 
+<br>
+
 The [root]{.highlight-red} component is the `App` function by default.
+
+<br>
 
 Everything else starts from the [root]{.highlight-red} component.
 
@@ -401,9 +405,12 @@ walk through the componentn and ask them what kind of logic each part is
 
 # Tutorial
 
-# Why is it Lossy?
+## Why is it Lossy?
 
-## Inteference
+### Range
+BLE devices have a typical range less than 100 meters.
+
+### Inteference
 BLE operates on the 2.4 GHz frequency band, which is shared with other wireless technologies.
 
 - ISM devices (e.g. microwave ovens, medical diathermy devices)
@@ -415,9 +422,15 @@ A channel is a specific frequency channel in between 2.4 GHz and 2.5 GHz.
 
 A BLE device constantly hops between channels to avoid interference.
 
-TODO: include diagram
+![](./images/channel-hop.png){fig-align="center"}
+
+::: {.notes}
+advertising channels do not change
+:::
 
 ## Packet Loss
-Packet loss may occur whenever there is interference.
+Packet loss may occur whenever the device is too far or when there is interference.
+
+<br>
 
 The BLE device changes channels but any lossed packets need to be resent.
