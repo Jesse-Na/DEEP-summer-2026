@@ -303,7 +303,14 @@ int age = 25; // creating a variable called age
 <br>
 
 ::: {.fragment .fade-in}
-![](./images/memory-model.png){fig-align=center width=60%}
+Computer Memory:
+
+| Address | Label | Value |
+|---------|-------|-------|
+| 0x23c   |       |       |
+| 0x240   |       |       |
+| 0x244   |       |       |
+| 0x248   |       |       |
 :::
 
 ::: {.notes}
@@ -479,11 +486,26 @@ What is the output?
 
 ## Truth Table
 
-![](./images/truth-table-blank.png)
+<br>
+
+| A | B | A && B | A \|\| B | !A |
+|---|---|:------:|:--------:|----|
+| 0 | 0 |   ?    |     ?    |  ? |
+| 0 | 1 |   ?    |     ?    |  ? |
+| 1 | 0 |   ?    |     ?    |  ? |
+| 1 | 1 |   ?    |     ?    |  ? |
+
 
 ## Truth Table
 
-![](./images/truth-table.png)
+<br>
+
+| A | B | A && B | A \|\| B | !A |
+|---|---|:------:|:--------:|----|
+| 0 | 0 |   0    |     0    |  1 |
+| 0 | 1 |   0    |     1    |  1 |
+| 1 | 0 |   0    |     1    |  0 |
+| 1 | 1 |   1    |     1    |  0 |
 
 ## Conditionals
 If and only if a condition is true, then the code inside is executed.
@@ -504,6 +526,7 @@ if (score >= 90) {
 What does this print?
 
 ::: {.notes}
+B then C then F
 scratch out the first elif branch, then the second
 :::
 
@@ -514,7 +537,14 @@ int arr[3] = {0, 1, 2};
 
 <br>
 
-![](./images/memory-model.png){fig-align=center}
+Computer Memory:
+
+| Address | Label | Value |
+|---------|-------|-------|
+| 0x23c   |       |       |
+| 0x240   |       |       |
+| 0x244   |       |       |
+| 0x248   |       |       |
 
 ::: {.notes}
 break down each part of the statement
@@ -542,7 +572,11 @@ int numbers[ARRAY_SIZE] = {10, 20, 30, 40, 50};
 printf("Integer array: %d %d %d %d %d\n", numbers[0], numbers[1], numbers[2], numbers[3], numbers[4]);
 ```
 
-What is the output?
+| Index | 0 | 1 | 2 | 3 | 4 |
+|-------|---|---|---|---|---|
+| Value | 10 | 20 | 30 | 40 | 50 |
+
+Output:
 
 ::: {.fragment .fade-in}
 ```

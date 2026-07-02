@@ -168,8 +168,9 @@ What is the output?
 # Javascript
 
 
-## Introduction 
-- JavaScript is the **programming language for websites**.
+## Introduction
+- JavaScript is the **programming language for web apps**.
+    - ... but also for desktop apps, mobile apps, and server-side scripting.
 - It can:
   - Calculate and manipulate data.
   - Update and modify HTML and CSS.
@@ -257,6 +258,7 @@ let b = 3;
 
 
 ## Operations:
+
 ### Assignment Operators
 
 ```js
@@ -284,7 +286,7 @@ Comparison operators return either `true` or `false`.
 
 #### Double Equals (`==`)
 
-Performs type conversion or only value matteres.
+Performs type conversion, only value matters.
 
 ```js
 5 == "5";      // true
@@ -309,7 +311,7 @@ Checks both value and type.
 
 
 
-## Functions: Why Use Functions?
+## Functions
 
 Instead of repeating:
 
@@ -339,7 +341,7 @@ Hello
 Hello
 ```
 
-## Functions: Parameters & Arguments
+## Parameters & Arguments
 
 ```js
 function greet(name) {
@@ -364,7 +366,14 @@ Hello Saniya
 - Parameter: `name`
 - Argument: `"Rita"` or `"Saniya"`
 
-## Functions: Functions as Values
+## Functions as Variables
+
+```js
+function square(num) {
+  return num * num;
+}
+```
+Can also be written as...
 
 ```js
 const square = function(num) {
@@ -373,24 +382,18 @@ const square = function(num) {
 
 console.log(square(5));
 ```
-Same Function Written Normally (called the same way) 
 
-```js
-function square(num) {
-  return num * num;
-} 
-```
 Output:
 
 ```
 25
 ```
 
-Functions can be stored in variables.
+Functions can be stored as variables.
 
-## Functions: Arrow Functions
+## Arrow Functions
 
-Normal:
+An even shorter way to write functions.
 
 ```js
 const square = function(num) {
@@ -398,7 +401,7 @@ const square = function(num) {
 };
 ```
 
-Arrow:
+Can also be written as...
 
 ```js
 const square = (num) => {
@@ -406,7 +409,7 @@ const square = (num) => {
 };
 ```
 
-Short form:
+And as...
 
 ```js
 const square = num => num * num;
@@ -414,7 +417,7 @@ const square = num => num * num;
 
 All three are equivalent.
 
-## Functions: Callback Functions
+## Callback Functions
 
 A callback is a function passed into another function.
 
@@ -435,9 +438,9 @@ Output:
 ```
 Hello
 ```
-`callback` is a function passed into another function and called later.
+`sayHello` is a function passed as an *argument* to `runCallback` and `runCallback` calls it inside its definition.
 
-## Array Functions: Review for Arrays 
+## Arrays
 
 
 ```js
@@ -466,13 +469,15 @@ const nums = [1, 2, 3];
 nums.forEach(num => console.log(num));
 ```
 
-Output:
+What is the output?
 
-```js
+::: {.fragment .fade-in}
+```
 1
 2
 3
 ```
+:::
 
 ## Array Functions: map()
 
@@ -482,30 +487,34 @@ Create a new array by transforming every item.
 const nums = [1, 2, 3, 4];
 
 const squares = nums.map(num => num * num);
+console.log(squares);
 ```
 
-Result:
+What is the result?
 
-```js
+::: {.fragment .fade-in}
+```
 [1, 4, 9, 16]
 ```
+:::
 
 ## Array Functions: push()
 
-Meaning: Add something to the end of the array.
+Add something to the end of the array.
 
 ```js
 const nums = [1, 2, 3];
 nums.push(4);
+console.log(nums);
 ```
 
-Result:
+What is the result?
 
-```js
+::: {.fragment .fade-in}
+```
 [1, 2, 3, 4]
 ```
-
-Can also add multiple items
+:::
 
 ## Array Functions: pop()
 
@@ -514,14 +523,19 @@ Remove the last item from the array and returns the removed item.
 ```js
 const nums = [1, 2, 3, 4];
 
-nums.pop();
+const popped = nums.pop();
+console.log(popped);
+console.log(nums);
 ```
 
-Result:
+What is the output?
 
-```js
+::: {.fragment .fade-in}
+```
+4
 [1, 2, 3]
 ```
+:::
 
 ## Strings
 A string is a sequence of characters enclosed by '' or "".
@@ -545,7 +559,7 @@ console.log(word); // "hello"
 
 This does **not** change the string.
 
-Accessing length: 
+Finding the string length:
 
 ```js
 console.log(word.length); // 5
@@ -553,7 +567,7 @@ console.log(word.length); // 5
 
 ## Objects
 
-Like struct in C, objects allows us to group related information together.
+Like structs in C, objects allows us to group related information together.
 
 ```js
 const student = {
@@ -563,7 +577,7 @@ const student = {
 };
 ```
 
-Access information using `.`:
+Access information using dot notation (`.`):
 
 ```js
 console.log(student.name); // Rita
@@ -585,9 +599,9 @@ We can write this:
 
 ```js
 const { name, age } = student;
-```
 
-```js
 console.log(name); // Rita
 console.log(age);  // 19
 ```
+
+# Tutorial
