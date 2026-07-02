@@ -195,10 +195,8 @@ export default function App() {
   const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
   const [connectingId, setConnectingId] = useState<string | null>(null);
   const [heartRate, setHeartRate] = useState(0);
-  // const [prevHeartRate, setPrevHeartRate] = useState(-1);
   const [rrIntervals, setRrIntervals] = useState<number[]>([]);
   const [log, setLog] = useState<string[]>([]);
-
   const [prevSeqNum, setPrevSeqNum] = useState(-1);
   const [seqNum, setSeqNum] = useState(0);
 

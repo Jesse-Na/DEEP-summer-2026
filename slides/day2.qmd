@@ -47,6 +47,10 @@ Types of CPU architectures:
 - x86 (Intel/AMD CPUs)
 - RISC-V
 
+::: {.fragment .fade-in}
+What is an architecture?
+:::
+
 ## Bluetooth Low-Energy (BLE)
 Wireless communication designed for low-power, short-range communication.
 
@@ -63,7 +67,7 @@ What applications or use cases is BLE good for?
 compare with bluetooth
 :::
 
-## Modes
+## BLE Modes
 
 Advertising: the device broadcasts its presence to nearby devices.
 
@@ -79,7 +83,7 @@ Labels to organize BLE communication:
 - Characteristics: a single value that can be read or written by the central device.
 
 ## Profiles
-BLE includes standard profiles that simplify development.
+BLE protocol issues standard profiles that simplify development.
 
 For example:
 
@@ -105,7 +109,7 @@ TODO
 - Hexadecimal (0-9, A, B, C, D, E, F)
 
 ::: {.notes}
-hand out worksheet
+hand out worksheet, not important to complete, can skip
 :::
 
 # 2 in binary?
@@ -140,10 +144,24 @@ work through some examples with them
 ## Bitwise Operators
 ```{.c}
 // Bitwise operators: &, |, ^, ~, <<, >>
-printf("  5 & 3  = %d  (0101 & 0011 = 0001)\n", 5 & 3);
-printf("  5 | 3  = %d  (0101 | 0011 = 0111)\n", 5 | 3);
-printf("  5 << 1 = %d  (left shift by 1)\n\n", 5 << 1);
+printf("  5 & 3  = %d\n", 5 & 3);
+printf("  5 | 3  = %d\n", 5 | 3);
+printf("  5 << 1 = %d\n\n", 5 << 1);
 ```
+
+What is the output?
+
+```
+5 & 3  = 1
+5 | 3  = 7
+5 << 1 = 10
+```
+
+::: {.notes}
+- (0101 & 0011 = 0001)
+- (0101 | 0011 = 0111)
+- (0101 << 1 = 1010)
+:::
 
 # Tutorial
 

@@ -26,12 +26,11 @@ const bleManager = new BleManager();
 function parseHeartRate(base64Value: string) {
   const raw = atob(base64Value);
   const bytes = Array.from(raw).map((c) => c.charCodeAt(0));
-  const flags = bytes[0];
-  const is16Bit = flags & 0x01;
-  const hr = is16Bit ? bytes[1] | (bytes[2] << 8) : bytes[1];
+  const seqNum = bytes[0];
+  const hr = bytes[1];
   const rrIntervals = [];
-  let offset = is16Bit ? 3 : 2;
-  const rrPresent = (flags >> 4) & 0x01;
+  let offset = 2;
+  const rrPresent = false;
   if (rrPresent) {
     while (offset + 1 < bytes.length) {
       const rr = ((bytes[offset + 1] << 8) | bytes[offset]) / 1024;
@@ -39,7 +38,7 @@ function parseHeartRate(base64Value: string) {
       offset += 2;
     }
   }
-  return { heartRate: hr, rrIntervals };
+  return { seqNum, heartRate: hr, rrIntervals };
 }
 
 // ─── Pulse animation component ───────────────────────────────────────────────
@@ -195,9 +194,10 @@ export default function App() {
   const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
   const [connectingId, setConnectingId] = useState<string | null>(null);
   const [heartRate, setHeartRate] = useState(0);
-  const [prevHeartRate, setPrevHeartRate] = useState(-1);
   const [rrIntervals, setRrIntervals] = useState<number[]>([]);
   const [log, setLog] = useState<string[]>([]);
+  const [prevSeqNum, setPrevSeqNum] = useState(-1);
+  const [seqNum, setSeqNum] = useState(0);
 
   const addLog = useCallback((msg: string) => {
     setLog((prev) => [msg, ...prev].slice(0, 50));
@@ -213,12 +213,17 @@ export default function App() {
 
   // TODO: day 4 code along
   useEffect(() => {
-    addLog(`Heart rate: ${heartRate}`);
-    if (heartRate !== prevHeartRate + 8) {
-      console.log(`Missed heart rate update: ${prevHeartRate} -> ${heartRate}`);
+    addLog(`Sequence number: ${seqNum}, Heart rate: ${heartRate}`);
+
+    if (prevSeqNum >= 254) {
+      setPrevSeqNum(-1);
+      return;
+    }
+
+    if (seqNum !== prevSeqNum + 1) {
       Alert.alert(
         "Missed Heart Rate Update",
-        `Expected ${prevHeartRate + 8}, got ${heartRate}`,
+        `Expected ${prevSeqNum + 1}, got ${seqNum}`,
         [
           {
             text: "OK",
@@ -226,7 +231,7 @@ export default function App() {
         ],
       );
     }
-    setPrevHeartRate(heartRate);
+    setPrevSeqNum(seqNum);
   }, [heartRate]);
 
   // Android permissions
@@ -305,6 +310,7 @@ export default function App() {
       const connected = await bleManager.connectToDevice(device.id);
       await connected.discoverAllServicesAndCharacteristics();
       setConnectedDevice(device);
+      setPrevSeqNum(-1);
       subscription.current = connected.monitorCharacteristicForService(
         HEART_RATE_SERVICE_UUID,
         HEART_RATE_CHARACTERISTIC_UUID,
@@ -313,9 +319,12 @@ export default function App() {
             return;
           }
           if (characteristic?.value) {
-            const { heartRate: hr, rrIntervals: rr } = parseHeartRate(
-              characteristic.value,
-            );
+            const {
+              seqNum,
+              heartRate: hr,
+              rrIntervals: rr,
+            } = parseHeartRate(characteristic.value);
+            setSeqNum(seqNum);
             setHeartRate(hr);
             setRrIntervals(rr);
           }
