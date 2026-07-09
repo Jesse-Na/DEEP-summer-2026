@@ -35,23 +35,28 @@ lossless but slow
 ## Protocol Race
 
 1. Get into groups of three and decide who will be the *client*, the *server*, and the *link*.
+    - The link will be running!!!
 
 2. The client and server should stand on opposite sides of the field.
 
-3. Server will have a buffer of X number of bytes and how many bytes it can remove from its buffer per turn. Only the server must know this.
+3. Server will have a buffer of X bytes. Each turn, it can only remove N bytes from its buffer. Only the server will know X and N.
 
-## Protocol Race
-When a round starts:
+## Round Start
+1. Client writes the number of bytes it wants to send to the server, and the link will deliver the message.
 
-1. The client will write the number of bytes it wants to send to the server, and the link will deliver the message to the server.
+2. The server when receiving a message should:
+    - Remove up to N bytes in the buffer
+    - Check if there is space for incoming bytes, and if there is, add them to the buffer and write a check mark on the whiteboard
+    - If there is no space, do not add any and write an X on the whiteboard
 
-2. The server will then do the following:
-    - Remove bytes in the buffer
-    - Check if there is space in the buffer for the incoming bytes, and if there is add them to the buffer and write a check mark on the whiteboard
-    - If there is no space, write an X on the whiteboard.
+##
+If the client receives an X, it can't send anything for 10 seconds.
 
-## Protocol Race
-3. The link will deliver the whiteboard back to the client. If the client receives an X, it can't send anything for 10 seconds. If the client receives a checkmark, it can move up however many steps it sent as bytes to the server.
+<br>
+
+If the client receives a checkmark, it can move up however many steps it sent as bytes to the server.
+
+<br>
 
 The first client to reach the server wins.
 
@@ -69,13 +74,16 @@ switch to ppt slides
 
 Mizi wants to send a message to Sua, but...
 
-TODO: include pictures
+![](./images/mizi-sua.png){fig-align="center" height=200}
 
-it's over the internet.
+
+::: {.fragment .fade-in}
+it has to go through me.
 
 <br>
 
 What should she do?
+:::
 
 ::: {.notes}
 traditionally known as alice and bob
@@ -85,46 +93,54 @@ get a volunteer in the class and try to do this
 
 ## Hashing
 
-A hash function takes in a message (preimage) and returns a smaller message (hash value/digest)
+A hash function takes in a message (preimage) and returns a fixed-size message (hash value/digest)
 
-A good hash function should be:
+::: {.fragment .fade-in}
+[strong tomato -> f4bc6e95368298d51a08...]{.highlight-red}
+:::
 
-- Preimage resistant
-- 2nd preimage resistant
-- Collision resistant
+::: {.fragment .fade-in}
+- same input = same output
+- different input = different output?
+- hard to reverse
 
 Good default hash function as of June 2, 2026: [SHA256]{.highlight-red}
 
 Avoid MD5!
+:::
 
 ## Ciphers
-An algorithm that obfuscates information so that it seems random to anyone who does not possess "the key".
+An algorithm that obfuscates information so that it seems random to anyone who does not possess [the key]{.highlight-red}.
 
-- Substitution ciphers
-- One-Time pads
+- e.g. Caesar cipher
 
-Symmetric encryption are ciphers that use a random key to encrypt and decrypt.
+::: {.fragment .fade-in}
+Symmetric encryption are ciphers that use the **same random** key to encrypt and decrypt.
 
-- Block ciphers
-- Stream ciphers
+<br>
 
 Good default cipher as of June 2, 2026: [AES-256]{.highlight-red}
+:::
 
 ::: {.notes}
+explain caesar cipher
+
 "the key", explain kerchkoff's principle
 :::
 
 ## Asymmetric Encryption
 
-- Every user has a public/private key pair
+- Every user has a public and private key
 - The private and public keys reveal nothing about the other
 - Messages encrypted with one key can only be decrypted with the other key
 
-Encryption: the sender encrypts the message with the recipient’s public key.
+::: {.fragment .fade-in}
+Encryption: the sender encrypts the message with the recipient's public key.
 
 Decryption: the recipient decrypts the message with their private key.
 
 Good default cipher as of June 2, 2026: [RSA]{.highlight-red}
+:::
 
 
 ## Signatures
