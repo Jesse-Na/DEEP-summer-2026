@@ -1,0 +1,56 @@
+\documentclass{./worksheet}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+
+\mytitle{Introduction to Javascript}
+
+\begin{document}
+
+This worksheet will give you some practice using the Javascript programming language. Make sure to refer to the slides if you are forgetting
+any of the syntax or the library functions. You can also raise your hand and ask for help if you are stuck! \\
+
+Javascript is a browser-based language, so you will be completing these tasks in
+a playground like \url{https://runjs.app/play}. You can run JS locally on your computer
+directly inside a browser or by installing a JS runtime like Node.js.
+\begin{enumerate}
+
+\item Write a Javascript arrow function that takes two integers as input and returns their difference.
+Call that function on two integers of your choice and print a message to the screen,
+in the format ``\verb|<int1>| minus \verb|<int2>| equals \verb|<diff>|".
+
+\item Create two variables and store a random integer between 0 and 100 in each one.
+Use the \verb|Math.random()| function to generate these values.
+
+\item Use the difference function on the two random integers to tell which of the two are bigger,
+and print a message to the screen in the format ``\verb|<int1>| is bigger than \verb|<int2>|".
+
+If they are the same, print a message in the format ``\verb|<int1>| equals \verb|<int2>|".
+
+\item Modify the arrow function so that it returns an object with the two integers and their difference.
+
+\item Create a new function that takes in a function as an argument, and:
+
+1. Creates two random integers between 0 and 100 \\
+2. Calls the function on the two integers \\
+3. Returns the result
+
+\item Call the new function passing in the difference function as its argument
+(hint: you will need to store the result of the difference function in a variable first).
+
+Print out the result in the format ``\verb|<int1>| minus \verb|<int2>| equals \verb|<diff>|".
+
+Hint: use object destructuring to extract the values from the result object.
+
+\item
+
+\item \textbf{Challenge:} Create an array of 10 random integers between 0 and 100,
+and use the difference function to find the largest and smallest values in the array.
+
+Another way to think of this problem is to find the largest difference between two numbers in the array.
+
+Hint: Use a for-loop inside a for-loop.
+
+
+\end{enumerate}
+
+
+\end{document}

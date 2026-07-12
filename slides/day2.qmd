@@ -176,9 +176,15 @@ What is the output?
   - Update and modify HTML and CSS.
 - Used to create interactive websites.
 
+## JS Playground
 
+<br>
 
+[RunJS](https://runjs.app/play)
 
+<br>
+
+Feel free to use any javascript playground!
 
 
 ## Variables

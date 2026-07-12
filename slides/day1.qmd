@@ -287,7 +287,15 @@ Git is **NOT** Github.
 show them the github
 :::
 
-# C Playground (TODO)
+## C Playground
+
+<br>
+
+[Programiz](https://programiz.pro/ide/c)
+
+<br>
+
+Feel free to use other online C playgrounds as well!
 
 ::: {.notes}
 hand out laptops
@@ -771,7 +779,7 @@ gcc source_code.c -o name_of_executable
 `-o` means *output* the executable to a file called \<whatever comes after\>
 
 ::: {.notes}
-show them how to compile?
+show them how to compile
 :::
 
 # Tutorial
