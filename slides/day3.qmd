@@ -103,6 +103,10 @@ export default function App() {
 }
 ```
 
+::: {.notes}
+explain props
+:::
+
 ## Creating Components {auto-animate="true"}
 
 We can then use this component in our `App` component.
@@ -317,6 +321,36 @@ const styles = StyleSheet.create({
 
 export default CounterApp;
 ```
+
+## State Types
+Instead of setting name to be an empty string by default, we can set it to null.
+
+```{.jsx}
+const [name, setName] = useState(null);
+```
+
+::: {.fragment .fade-in}
+But now React doesn't know the type of name.
+:::
+
+## State Types
+We can specify the type of name to be a string OR null.
+
+```{.jsx}
+const [name, setName] = useState<string | null>(null);
+```
+
+::: {.fragment .fade-in}
+Now, later on we can set name to be a string.
+
+```{.jsx}
+setName("Nikki")
+```
+:::
+
+::: {.notes}
+- bar means or
+:::
 
 ## Effects
 

@@ -740,6 +740,14 @@ break/continue demo (odd numbers < 7): 1 3 5
 
 # Careful of infinite loops!
 
+## Comments
+Comments are ignored by the compiler and are used to explain code.
+
+```{.c}
+int x = 3; // they start with a double slash
+// you've alreaady seen comments in the previous slides
+```
+
 ## Includes
 We often have to borrow other people's code to write our own.
 
