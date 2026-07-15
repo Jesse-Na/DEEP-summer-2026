@@ -9,6 +9,15 @@ This worksheet will give you some practice using the C programming language. Mak
 any of the syntax or the library functions. You can also raise your hand and ask for help if you are stuck!
 \begin{enumerate}
 
+\item Create a C program and add the following includes at the top:
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+\end{verbatim}
+
+
 \item Write a simple C program that creates two integers and computes its sum.
 Then print a message back to the screen, in the format ``\verb|<int1>| plus \verb|<int2>| equals \verb|<sum>|".
 
@@ -19,19 +28,14 @@ You can use the following resource to help you \url{https://www.w3schools.com/c/
 program into an executable named \verb|intro_c|?
 \vspace{0.5in}
 
-\item In the same program or a new one. Define a struct type that represents the current
+\item In the same program. Define a struct type that represents the current
 time. It should have fields for the hour, minute, and second. Create a variable
 of this struct to store the current time (just enter it manually).
-
-\textbf{Challenge}: have
-the variable store the current time automatically using the \verb|time()| function.
-You can use the following resource to help you \url{https://www.w3schools.com/c/c_date_time.php}
 
 \item Write a function that takes in this time struct as an argument and
 prints it to the screen in the format ``\verb|HH:MM:SS|".
 
-\item Create an array of time structs set to random times.
-Create a for loop to iterate through the array and print each time.
+Hint: use the format specifier \verb|%02d| to pad single-digit numbers with a leading zero.
 
 \item Create a while loop in main that updates the struct every second and prints the new time.
 Remember there cannot be more than 60 seconds ;).
