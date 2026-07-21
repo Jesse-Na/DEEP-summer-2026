@@ -442,7 +442,7 @@ walk through the componentn and ask them what kind of logic each part is
 ## Why is it Lossy?
 
 ### Range
-BLE devices have a typical range less than 100 meters.
+BLE devices have a typical range less than 10 meters.
 
 ### Inteference
 BLE operates on the 2.4 GHz frequency band, which is shared with other wireless technologies.
